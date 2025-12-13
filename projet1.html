@@ -17,8 +17,8 @@
         <div class="logo"><a href="index.html">Taif<span>.design</span></a></div>
         <ul class="nav-links">
             <li><a href="index.html">Accueil</a></li>
-            <li><a href="projets.html">Portfolio</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><a href="projets.html" class="active">Projets</a></li>
+            <li><a href="contact.html" class="btn-contact">Me Contacter</a></li>
         </ul>
     </nav>
 
@@ -34,7 +34,28 @@
 
     <section style="padding: 0 10% 6rem 10%;">
         
-        <div class="project-banner" style="background-image: url('https://via.placeholder.com/1200x600');"></div>
+    <div class="carousel-container">
+            <div class="carousel-track">
+                <div class="carousel-slide">
+                    <img src="img/urban-1.jpg" alt="Photo Urbanbootcamp 1">
+                </div>
+                <div class="carousel-slide">
+                    <img src="img/urban-2.jpg" alt="Photo Urbanbootcamp 2">
+                </div>
+                <div class="carousel-slide">
+                    <img src="img/urban-3.jpg" alt="Photo Urbanbootcamp 3">
+                </div>
+                <div class="carousel-slide">
+                    <img src="img/urban-4.jpg" alt="Photo Urbanbootcamp 4">
+                </div>
+                <div class="carousel-slide">
+                    <img src="img/urban-5.jpg" alt="Photo Urbanbootcamp 5">
+                </div>
+            </div>
+
+            <button class="carousel-btn prev-btn" onclick="moveSlide(-1)">&#10094;</button>
+            <button class="carousel-btn next-btn" onclick="moveSlide(1)">&#10095;</button>
+        </div>
 
         <div class="glass-card" style="padding: 3rem; border-radius: 20px;">
             <div class="project-body">
@@ -66,40 +87,67 @@
         
         <div class="footer-brand">
             <div class="footer-logo">Taif<span>.design</span></div>
-            <p class="footer-desc">
-                Designer Graphique & Créatif Visuel.<br>
-                Transformons vos idées en réalité.
-            </p>
-            <a href="mailto:ton.email@gmail.com" class="btn-email">
-                ton.email@gmail.com <span class="arrow">&rarr;</span>
-            </a>
+            <p class="footer-desc">Designer Graphique & Créatif Visuel.</p>
+            <a href="mailto:ton.email@gmail.com" class="btn-email">YOUSSEF.TAIF@iut-tarbes.fr <span class="arrow">&rarr;</span></a>
         </div>
 
         <div class="footer-links">
             <h4>Menu</h4>
             <ul>
                 <li><a href="index.html">Accueil</a></li>
-                <li><a href="projet.html">Projets</a></li>
+                <li><a href="projets.html">Projets</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
         </div>
 
         <div class="footer-links">
-            <h4>Social</h4>
+            <h4>Réseaux</h4>
             <ul>
-                <li><a href="#" target="_blank">LinkedIn</a></li>
-                <li><a href="#" target="_blank">Behance</a></li>
-                <li><a href="#" target="_blank">Instagram</a></li>
+                <li><a href="https://www.linkedin.com/in/youssef-taif/" target="_blank">LinkedIn</a></li>
+                <li><a href="https://padlet.com/yousseftaif11/bilan-des-sae-empw4psaw6zmbr99" target="_blank">Padlet</a></li>
             </ul>
         </div>
 
     </div>
 
     <div class="footer-bottom">
-        <p>&copy; 2024 Taif Youssef. Tous droits réservés.</p>
-        <p class="credits">Designé sur Figma • Codé avec VS Code</p>
+        <div class="copyright-block">
+            <p>&copy; 2025 Taif Youssef.</p>
+            <a href="mentions-legales.html" class="legal-link">Mentions Légales</a>
+        </div>
+        <p class="credits">Design & Code by me</p>
     </div>
 </footer>
 
+<script>
+    let currentIndex = 0;
+    
+    function moveSlide(direction) {
+        const track = document.querySelector('.carousel-track');
+        const slides = document.querySelectorAll('.carousel-slide');
+        const totalSlides = slides.length;
+
+        // Mise à jour de l'index
+        currentIndex += direction;
+
+        // Si on dépasse la fin, on revient au début
+        if (currentIndex >= totalSlides) {
+            currentIndex = 0;
+        }
+        // Si on va avant le début, on va à la fin
+        if (currentIndex < 0) {
+            currentIndex = totalSlides - 1;
+        }
+
+        // Déplacement du rail
+        const translateValue = -currentIndex * 100; // Déplace de -100%, -200%, etc.
+        track.style.transform = `translateX(${translateValue}%)`;
+    }
+
+    // Optionnel : Défilement automatique toutes les 5 secondes
+    setInterval(() => {
+        moveSlide(1);
+    }, 5000);
+</script>
 </body>
 </html>
