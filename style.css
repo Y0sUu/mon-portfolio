@@ -636,11 +636,9 @@ textarea.glass-input {
     .carousel-container { height: 40vh; }
 
 }
-/* --- RESPONSIVE NAVIGATION --- */
-
-/* 1. Style du bouton Hamburger (Caché par défaut sur PC) */
+/* --- MENU HAMBURGER --- */
 .hamburger {
-    display: none;
+    display: none; /* Caché sur PC */
     cursor: pointer;
     flex-direction: column;
     gap: 5px;
@@ -650,59 +648,44 @@ textarea.glass-input {
     display: block;
     width: 25px;
     height: 3px;
-    background-color: white;
+    background-color: white; /* Couleur des barres */
     border-radius: 3px;
     transition: all 0.3s ease;
 }
 
-/* 2. Styles pour Mobile et Tablette (Max 768px) */
+/* RESPONSIVE */
 @media (max-width: 768px) {
-    
-    /* On affiche le bouton hamburger */
     .hamburger {
-        display: flex;
-        z-index: 101; /* Pour être au-dessus du menu ouvert */
+        display: flex; /* Visible sur mobile */
+        z-index: 101;
     }
 
-    /* On transforme la liste de liens en menu latéral */
     .nav-links {
-        display: flex; /* On remet flex (on enlève le display:none s'il y était) */
+        display: flex;
         position: fixed;
         top: 0;
-        right: -100%; /* Caché hors de l'écran par défaut */
+        right: -100%; /* Caché à droite */
         height: 100vh;
-        width: 70%; /* Largeur du menu */
-        background: rgba(5, 5, 16, 0.95); /* Fond sombre presque opaque */
+        width: 70%;
+        background: rgba(5, 5, 16, 0.95);
         backdrop-filter: blur(10px);
         flex-direction: column;
         align-items: center;
         justify-content: center;
         gap: 3rem;
-        transition: right 0.4s ease; /* Animation fluide */
+        transition: right 0.4s ease;
         z-index: 100;
         box-shadow: -5px 0 15px rgba(0,0,0,0.5);
     }
 
-    /* Classe active ajoutée par JS pour ouvrir le menu */
     .nav-links.active {
-        right: 0; /* On ramène le menu sur l'écran */
+        right: 0; /* Apparait quand on clique */
     }
-
-    /* Style des liens dans le menu mobile */
-    .nav-links li a {
-        font-size: 1.5rem;
-    }
-
-    /* Animation du Hamburger en Croix (Optionnel mais stylé) */
-    .hamburger.active .bar:nth-child(1) {
-        transform: translateY(8px) rotate(45deg);
-    }
-    .hamburger.active .bar:nth-child(2) {
-        opacity: 0;
-    }
-    .hamburger.active .bar:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg);
-    }
+    
+    /* Animation de la croix */
+    .hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger.active .bar:nth-child(2) { opacity: 0; }
+    .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 }
 /* --- RESPONSIVE MOBILE (À mettre tout en bas du CSS) --- */
 @media (max-width: 768px) {
@@ -751,3 +734,4 @@ textarea.glass-input {
     h1 { font-size: 2.5rem !important; }
     h2 { font-size: 2rem !important; }
 }
+
