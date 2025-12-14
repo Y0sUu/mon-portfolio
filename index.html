@@ -150,25 +150,22 @@
 </footer>
 
 <script>
-    // Sélectionne les éléments
-    const hamburger = document.querySelector(".hamburger");
-    const navMenu = document.querySelector(".nav-links");
+        const hamburger = document.querySelector(".hamburger");
+        const navMenu = document.querySelector(".nav-links");
 
-    // Ajoute un écouteur d'événement au clic
-    hamburger.addEventListener("click", () => {
-        // Bascule la classe 'active' sur le bouton et le menu
-        hamburger.classList.toggle("active");
-        navMenu.classList.toggle("active");
-    });
+        hamburger.addEventListener("click", () => {
+            hamburger.classList.toggle("active");
+            navMenu.classList.toggle("active");
+        });
 
-    // Ferme le menu quand on clique sur un lien
-    document.querySelectorAll(".nav-links a").forEach(n => n.addEventListener("click", () => {
-        hamburger.classList.remove("active");
-        navMenu.classList.remove("active");
-    }));
-</script>
-</body>
-</html>
+        document.querySelectorAll(".nav-links a").forEach(n => n.addEventListener("click", () => {
+            hamburger.classList.remove("active");
+            navMenu.classList.remove("active");
+        }));
+    </script>
+
+</body> </html>
+
 
 
 
