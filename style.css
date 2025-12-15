@@ -1,4 +1,6 @@
-/* Config de base */
+/* =========================================
+   1. CONFIGURATION DE BASE
+   ========================================= */
 :root {
     --bg: #050510; 
     --glass: rgba(255, 255, 255, 0.03);
@@ -18,6 +20,7 @@ body {
     background: var(--bg);
     color: white;
     font-family: 'Outfit', sans-serif;
+    overflow-x: hidden; /* Empêche le scroll horizontal */
 }
 
 a { 
@@ -27,7 +30,9 @@ a {
 
 ul { list-style: none; }
 
-/* Le fond animé */
+/* =========================================
+   2. FOND ANIMÉ
+   ========================================= */
 .background-container {
     position: fixed;
     top: 0;
@@ -62,21 +67,21 @@ ul { list-style: none; }
     -webkit-text-fill-color: transparent;
 }
 
-/* Nav + glass effect */
-.glass-nav, .glass-card {
+/* =========================================
+   3. NAVIGATION (PC)
+   ========================================= */
+.glass-nav {
     background: var(--glass);
     backdrop-filter: blur(20px);
-    border: 1px solid var(--border);
-}
-
-.glass-nav {
+    border-bottom: 1px solid var(--border);
     position: fixed;
     top: 0;
     width: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 1.2rem 5%;
-    z-index: 100;
+    z-index: 1000;
 }
 
 .logo { 
@@ -106,7 +111,26 @@ ul { list-style: none; }
     color: black; 
 }
 
-/* Hero */
+/* --- BOUTON BURGER (Caché sur PC par défaut) --- */
+.hamburger {
+    display: none; /* Important : caché sur grand écran */
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.hamburger .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+/* =========================================
+   4. HERO & SECTIONS
+   ========================================= */
 .full-screen {
     min-height: 100vh;
     display: flex;
@@ -115,11 +139,19 @@ ul { list-style: none; }
     padding: 6rem 1rem 2rem;
 }
 
+.glass-card {
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+}
+
 .hero-card {
     padding: 4rem;
     border-radius: 24px;
     max-width: 900px;
     text-align: center;
+    background: var(--glass);
+    border: 1px solid var(--border);
 }
 
 .badge {
@@ -158,157 +190,134 @@ h1 {
     font-weight: 600;
 }
 
-.btn-primary {
-    background: white;
-    color: black;
-}
-.btn-primary:hover { 
-    transform: translateY(-3px); 
-}
+.btn-primary { background: white; color: black; }
+.btn-primary:hover { transform: translateY(-3px); }
 
-.btn-outline {
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.3);
-}
-.btn-outline:hover { 
-    border-color: white; 
-}
+.btn-outline { background: transparent; border: 1px solid rgba(255,255,255,0.3); }
+.btn-outline:hover { border-color: white; }
 
-/* Sections */
-.padding-section { 
-    padding: 6rem 10%; 
-}
+.padding-section { padding: 6rem 10%; }
+.section-title { font-size: 3rem; margin-bottom: 3rem; text-align: center; }
 
-.section-title { 
-    font-size: 3rem; 
-    margin-bottom: 3rem; 
-    text-align: center; 
-}
-
-/* Grille projets */
+/* =========================================
+   5. PROJETS (AVEC LE FLOU REMIS)
+   ========================================= */
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 2.5rem;
 }
+
 .project {
-    /* ... tes autres lignes ... */
-    
-    /* AVANT c'était 0.2 (trop fort). CHANGE PAR : */
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    
-    /* Le reste ne change pas */
-    background: rgba(255, 255, 255, 0.03); 
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.3s ease;
 }
 
-/* Garde l'effet au survol, mais change la couleur si tu veux */
+.img-container {
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+    position: relative;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* --- LE RETOUR DE L'EFFET FLOU --- */
+.project-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    
+    /* Le flou par défaut */
+    filter: blur(3px) brightness(0.8); 
+    transform: scale(1);
+    
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.project-content { padding: 1.5rem; }
+.project-content h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+.tags { color: var(--violet); font-size: 0.85rem; margin-bottom: 1rem; }
+
+/* --- AU SURVOL (HOVER) --- */
 .project:hover {
     transform: translateY(-8px);
-    /* Au survol, on peut la rendre un peu plus visible ou colorée */
-    border-color: var(--violet); 
-}
-.project:hover { 
-    transform: translateY(-10px); 
+    border-color: var(--violet);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.08);
 }
 
-.project-img {
-    height: 240px;
+.project:hover .project-img {
+    filter: blur(0) brightness(1); /* Devient NET ici */
+    transform: scale(1.1);
+}
+
+
+/* =========================================
+   6. DÉTAILS PROJETS & INTERACTIVITÉ
+   ========================================= */
+.project-header { text-align: center; padding: 8rem 1rem 4rem; }
+.project-infos { display: flex; justify-content: center; gap: 3rem; margin-bottom: 3rem; color: var(--red); }
+
+.project-banner {
     width: 100%;
+    height: 60vh;
+    background: #222;
+    border-radius: 20px;
+    margin-bottom: 4rem;
+    background-size: cover;
+    background-position: center;
 }
+.project-body { max-width: 800px; margin: 0 auto; line-height: 1.8; color: #ddd; }
+.project-body h2 { color: white; margin-top: 3rem; margin-bottom: 1rem; }
 
-.project-content { 
-    padding: 2rem; 
+/* Carrousel */
+.carousel-container {
+    width: 100%; height: 60vh; position: relative; overflow: hidden;
+    border-radius: 20px; margin-bottom: 4rem; border: 1px solid rgba(255, 255, 255, 0.1);
 }
+.carousel-track { display: flex; height: 100%; transition: transform 0.5s ease-in-out; }
+.carousel-slide { min-width: 100%; height: 100%; }
+.carousel-slide img { width: 100%; height: 100%; object-fit: cover; }
+.carousel-btn {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5); color: white; border: 1px solid rgba(255,255,255,0.2);
+    width: 50px; height: 50px; border-radius: 50%; cursor: pointer; z-index: 10;
+    display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+}
+.prev-btn { left: 20px; } .next-btn { right: 20px; }
 
-.project-content h3 { 
-    font-size: 1.5rem; 
-    margin-bottom: 0.5rem; 
+/* Images Interactives (Itch.io) */
+.click-hint { font-size: 0.9rem; color: var(--violet); margin-bottom: 0.5rem; font-weight: 600; text-transform: uppercase; }
+.img-link-wrapper {
+    display: block; position: relative; border-radius: 12px; overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.1); max-width: 400px; margin: 0 auto; transition: transform 0.3s ease;
 }
-
-.tags { 
-    color: var(--violet); 
-    font-size: 0.85rem; 
-    margin-bottom: 1rem; 
+.img-link-wrapper:hover { transform: translateY(-5px); border-color: var(--red); }
+.interactive-img { width: 100%; display: block; }
+.overlay-play {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8); color: white; padding: 1rem 2rem; border-radius: 50px;
+    opacity: 0; transition: opacity 0.3s; border: 1px solid var(--red);
 }
+.img-link-wrapper:hover .overlay-play { opacity: 1; }
 
 /* Skills */
-.skills-grid-simple {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-}
-.skills-grid-simple li {
-    padding-left: 1rem;
-    border-left: 2px solid var(--violet);
-    color: #ddd;
-}
+.skills-grid-simple { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.skills-grid-simple li { padding-left: 1rem; border-left: 2px solid var(--violet); color: #ddd; }
 
-/* Footer */
-.clean-footer {
-    background: #020205;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 5rem 5% 2rem;
-    margin-top: 6rem;
-}
 
-.footer-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    gap: 4rem;
-    margin-bottom: 4rem;
-}
-
-.footer-logo {
-    font-weight: 800;
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
-}
-.footer-logo span { color: var(--red); }
-
-.footer-desc {
-    color: #888;
-    margin-bottom: 2rem;
-}
-
-.btn-email {
-    color: white;
-    font-weight: 600;
-    border-bottom: 2px solid var(--violet);
-}
-.btn-email:hover {
-    color: var(--violet);
-}
-
-.footer-links h4 {
-    margin-bottom: 1.5rem;
-}
-
-.footer-links ul li { 
-    margin-bottom: 0.8rem; 
-}
-
-.footer-links a {
-    color: #999;
-}
-.footer-links a:hover {
-    color: var(--red);
-}
-
-.footer-bottom {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding-top: 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    display: flex;
-    justify-content: space-between;
-    color: #444;
-    font-size: 0.85rem;
-}
-
-/* Page Contact */
+/* =========================================
+   7. PAGE CONTACT (Ton code exact)
+   ========================================= */
 .contact-page-section {
     padding-top: 8rem;
 }
@@ -404,254 +413,47 @@ textarea.glass-input {
     border-radius: 50px;
 }
 
-/* Page projet détail */
-.project-header { 
-    text-align: center; 
-    padding: 8rem 1rem 4rem; 
+
+/* =========================================
+   8. FOOTER
+   ========================================= */
+.clean-footer {
+    background: #020205; border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 5rem 5% 2rem; margin-top: 6rem;
 }
-
-.project-banner {
-    width: 100%;
-    height: 60vh;
-    background: #222;
-    border-radius: 20px;
-    margin-bottom: 4rem;
-    background-size: cover;
-    background-position: center;
+.footer-container { max-width: 1200px; margin: 0 auto 4rem; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 4rem; }
+.footer-logo { font-weight: 800; font-size: 1.8rem; margin-bottom: 1rem; }
+.footer-logo span { color: var(--red); }
+.footer-links h4 { margin-bottom: 1.5rem; }
+.footer-links ul li { margin-bottom: 0.8rem; }
+.footer-links a:hover { color: var(--red); }
+.footer-bottom {
+    max-width: 1200px; margin: 0 auto; padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05); display: flex; justify-content: space-between; color: #444; font-size: 0.85rem;
 }
-
-.project-body { 
-    max-width: 800px; 
-    margin: 0 auto; 
-    line-height: 1.8; 
-    color: #ddd; 
-}
-
-.project-body h2 { 
-    color: white; 
-    margin-top: 3rem; 
-    margin-bottom: 1rem; 
-}
-
-.project-infos {
-    display: flex; 
-    justify-content: center; 
-    gap: 3rem; 
-    margin-bottom: 3rem;
-    color: var(--red);
-}
-
-/* --- STYLE POUR LES IMAGES CLIQUABLES (ITCH.IO) --- */
-
-.click-hint {
-    font-size: 0.9rem;
-    color: var(--c-violet);
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.img-link-wrapper {
-    display: block;
-    position: relative; /* Nécessaire pour l'overlay */
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid rgba(255,255,255,0.1);
-    transition: transform 0.3s ease;
-}
-
-.img-link-wrapper:hover {
-    transform: translateY(-5px);
-    border-color: var(--c-red);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
-
-.interactive-img {
-    width: 100%;
-    display: block;
-    transition: opacity 0.3s;
-}
-
-/* Texte qui apparait par dessus l'image au survol */
-.overlay-play {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 1rem 2rem;
-    border-radius: 50px;
-    font-weight: 600;
-    opacity: 0; /* Caché par défaut */
-    transition: opacity 0.3s;
-    border: 1px solid var(--c-red);
-}
-
-.img-link-wrapper:hover .overlay-play {
-    opacity: 1; /* Visible au survol */
-}
-
-.img-link-wrapper:hover .interactive-img {
-    opacity: 0.7; /* L'image s'assombrit un peu */
-}
-
-.img-link-wrapper {
-    display: block;
-    position: relative;
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid rgba(255,255,255,0.1);
-    transition: transform 0.3s ease;
-
-    /* --- AJOUTE CES 2 LIGNES ICI --- */
-    max-width: 400px; /* Limite la largeur (tu peux changer 400 par 300 ou 500) */
-    margin: 0 auto;   /* Centre l'image au milieu de la page */
-}
-
-/* --- LE CADRE PROJET (Renforcé) --- */
-.project {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    
-    /* 1. Fond un peu plus visible (5% de blanc au lieu de 3%) */
-    background: rgba(255, 255, 255, 0.05); 
-    
-    /* 2. Le Flou derrière le cadre */
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    
-    /* 3. Bordure plus marquée (20% de blanc) pour bien voir la limite */
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    
-    /* 4. Ombre portée pour détacher la carte du fond noir */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    
-    border-radius: 20px; /* Coins arrondis */
-    overflow: hidden;    /* Coupe l'image qui dépasse */
-    transition: all 0.3s ease;
-}
-
-/* Le conteneur de l'image (pour gérer le zoom) */
-.img-container {
-    width: 100%;
-    height: 250px; /* Hauteur fixe */
-    overflow: hidden;
-    position: relative;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Petite ligne de séparation sous l'image */
-}
-
-/* L'IMAGE */
-.project-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; 
-    object-position: top center;
-    
-    filter: blur(3px) brightness(0.8); /* Flou par défaut */
-    transform: scale(1);
-    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
+.copyright-block { display: flex; gap: 1.5rem; }
+.legal-link { text-decoration: underline; color: #666; }
 
 
-/* LE CONTENU TEXTE EN BAS */
-.project-content {
-    padding: 1.5rem;
-}
-
-/* --- AU SURVOL (HOVER) --- */
-.project:hover {
-    transform: translateY(-8px); /* La carte monte */
-    border-color: var(--c-violet); /* La bordure devient violette */
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5); /* L'ombre grandit */
-    background: rgba(255, 255, 255, 0.08); /* Le fond s'éclaire un peu */
-}
-
-.project:hover .project-img {
-    filter: blur(0) brightness(1); /* Image nette */
-    transform: scale(1.1); /* Zoom */
-}
-
-.project:hover .img-container::after {
-    opacity: 0; /* Le texte disparait */
-}
-/* --- STYLE DU CARROUSEL --- */
-.carousel-container {
-    width: 100%;
-    height: 60vh; /* Hauteur du carrousel (ajuste si besoin) */
-    position: relative;
-    overflow: hidden; /* Cache les images qui dépassent */
-    border-radius: 20px;
-    margin-bottom: 4rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-}
-
-.carousel-track {
-    display: flex;
-    height: 100%;
-    transition: transform 0.5s ease-in-out; /* Animation fluide */
-}
-
-.carousel-slide {
-    min-width: 100%; /* Chaque image prend 100% de la largeur du conteneur */
-    height: 100%;
-}
-
-.carousel-slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Coupe l'image proprement sans déformer */
-    object-position: center;
-}
-
-/* Boutons Précédent / Suivant */
-.carousel-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: 1px solid rgba(255,255,255,0.2);
-    padding: 1rem;
-    cursor: pointer;
-    font-size: 1.5rem;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: 0.3s;
-    z-index: 10;
-}
-
-.carousel-btn:hover {
-    background: var(--violet); /* Utilise ta couleur violette */
-    border-color: white;
-}
-
-.prev-btn { left: 20px; }
-.next-btn { right: 20px; }
-
+/* =========================================
+   9. RESPONSIVE MOBILE (CORRECTIONS FINALES)
+   ========================================= */
 @media (max-width: 768px) {
 
     /* --- A. MENU BURGER --- */
     .hamburger {
-        display: flex; /* On affiche le burger */
-        z-index: 1001; /* Au dessus de tout */
+        display: flex; /* On affiche le burger sur mobile */
+        z-index: 1001; 
     }
 
     .nav-links {
-        display: flex; /* Important: pas de display:none ici */
+        display: flex; /* On garde flex pour l'alignement */
         position: fixed;
         top: 0;
-        right: -100%; /* Caché hors écran */
+        right: -100%; /* Caché hors écran par défaut */
         height: 100vh;
         width: 75%;
-        background: rgba(5, 5, 16, 0.98); /* Fond opaque */
+        background: rgba(5, 5, 16, 0.98);
         flex-direction: column;
         align-items: center;
         justify-content: center;
@@ -661,73 +463,46 @@ textarea.glass-input {
         box-shadow: -10px 0 20px rgba(0,0,0,0.5);
     }
 
-    /* Classe active ajoutée par le JS */
+    /* Quand on clique (classe active ajoutée par JS) */
     .nav-links.active {
-        right: 0; /* Le menu glisse sur l'écran */
+        right: 0; 
     }
+    
     .nav-links li a { font-size: 1.5rem; }
 
-    /* Animation Croix Burger */
+    /* Animation Croix */
     .hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
     .hamburger.active .bar:nth-child(2) { opacity: 0; }
     .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
 
-    /* --- B. LAYOUT & PADDING (Correction des débordements) --- */
-    .padding-section, 
-    section[style*="padding"] { 
-        padding: 4rem 1.5rem !important; /* Marges réduites */
-    }
+    /* --- B. CORRECTION LAYOUT (S'applique aussi à ton code contact) --- */
+    .padding-section, section[style*="padding"] { padding: 4rem 1.5rem !important; }
+    .glass-card, .hero-card, .contact-info-side, .contact-form-side { padding: 2rem !important; }
 
-    .glass-card, 
-    .hero-card,
-    .contact-info-side, 
-    .contact-form-side {
-        padding: 2rem !important; /* Moins d'espace intérieur */
-    }
-
-    /* Passage en colonne unique pour les grilles */
-    .projects-grid,
-    .footer-container,
-    .contact-wrapper,
-    .input-row,
-    div[style*="grid-template-columns"] {
+    /* Force tout sur 1 colonne sur mobile */
+    .projects-grid, .footer-container, .contact-wrapper, .input-row, div[style*="grid-template-columns"] {
         grid-template-columns: 1fr !important;
-        display: flex;
-        flex-direction: column;
-        gap: 2rem !important;
+        display: flex; flex-direction: column; gap: 2rem !important;
     }
 
-    /* --- C. CORRECTION ESTHÉTIQUE MOBILE --- */
-    /* Suppression des bordures blanches qui font "sale" sur mobile */
+    /* --- C. ESTHÉTIQUE MOBILE --- */
+    /* Pas de bordure moche sur mobile */
     .glass-card, .project {
         border: none !important;
         background: rgba(255, 255, 255, 0.05) !important;
         box-shadow: none !important;
     }
 
-    /* Ajustement des titres */
+    /* Tailles de texte ajustées */
     h1, .hero-card h1 { font-size: 2.5rem !important; }
     h2 { font-size: 1.8rem !important; }
 
-    /* Carrousel et bannières moins hauts */
-    .carousel-container, .project-banner {
-        height: 35vh !important;
-    }
+    /* Hauteurs réduites */
+    .carousel-container, .project-banner { height: 35vh !important; }
 
-    /* Fix pour le texte "L'oeil et la technique" qui débordait */
-    div[style*="min-width"] {
-        min-width: 0 !important;
-        width: 100% !important;
-    }
-
-    .footer-bottom {
-        flex-direction: column;
-        gap: 1rem;
-        text-align: center;
-    }
-    .copyright-block {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
+    div[style*="min-width"] { min-width: 0 !important; width: 100% !important; }
+    
+    .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+    .copyright-block { flex-direction: column; gap: 0.5rem; }
 }
