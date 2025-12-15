@@ -274,6 +274,17 @@ ul { list-style: none; }
 .project-content h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
 .tags { color: var(--violet); font-size: 0.85rem; }
 
+.skills-grid-simple {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+.skills-grid-simple li {
+    padding-left: 1rem;
+    border-left: 2px solid var(--violet);
+    color: #ddd;
+}
+
 
 /* =========================================
    7. PAGE DÉTAIL PROJET (Header & Contenu)
@@ -406,15 +417,72 @@ ul { list-style: none; }
 /* =========================================
    9. PAGE CONTACT & FOOTER
    ========================================= */
+.contact-page-section {
+    padding-top: 8rem;
+}
+
 .contact-wrapper {
     max-width: 1100px;
     display: grid;
     grid-template-columns: 1fr 1.2fr;
-    padding: 0; /* Padding géré par les enfants */
-    overflow: hidden;
+    padding: 0;
 }
-.contact-info-side { background: rgba(0, 0, 0, 0.2); padding: 3.5rem; }
-.contact-form-side { padding: 3.5rem; }
+
+.contact-info-side {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 3.5rem;
+}
+
+.contact-desc {
+    margin: 1.5rem 0 3rem;
+    color: #bbb;
+}
+
+.direct-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.dc-item .label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--violet);
+    margin-bottom: 0.3rem;
+}
+
+.dc-item .value {
+    font-size: 1.2rem;
+}
+
+.social-icons-row {
+    display: flex;
+    gap: 1.5rem;
+}
+.social-icons-row a:hover {
+    color: white;
+}
+
+/* Form */
+.contact-form-side {
+    padding: 4rem;
+}
+
+.form-group {
+    margin-bottom: 2rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.8rem;
+    color: #ccc;
+}
+
+.input-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
 
 .glass-input {
     width: 100%;
@@ -423,12 +491,26 @@ ul { list-style: none; }
     padding: 1.2rem;
     border-radius: 12px;
     color: white;
-    margin-bottom: 1.5rem;
-    font-family: inherit;
+    font-family: 'Outfit', sans-serif;
 }
-.glass-input:focus { outline: none; border-color: var(--violet); background: rgba(255,255,255,0.08); }
-.input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-.submit-btn { width: 100%; cursor: pointer; border: none; font-size: 1.1rem; }
+
+.glass-input:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--violet);
+}
+
+textarea.glass-input {
+    min-height: 150px;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 1.2rem;
+    margin-top: 1rem;
+    font-size: 1.1rem;
+    border-radius: 50px;
+}
 
 /* Footer */
 .clean-footer {
